@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Document
+    link(rel="stylesheet", href="style.scss")
+  body
+    .todoapp
+      form#js-form
+        input#js-form-input.new-todo(type="text" placeholder="new todo" autocomplete="off" )
+      #js-todo-list.todo-list
+
+      footer.footer
+        span#js-todo-count Total Counts: 0
+    script(src="./index.ts")
