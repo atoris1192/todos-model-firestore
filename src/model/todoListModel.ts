@@ -47,6 +47,9 @@ export class TodoListModel extends EventEmitter {
       isDone: isDone
     })
   }
+  deleteItem({ id }) {
+    let item = collection.doc(id).delete();
+  }
   test01() { // all items
     let citiesRef = db.collection('todos');
     let allCities = citiesRef.get()

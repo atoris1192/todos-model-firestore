@@ -16,7 +16,7 @@ export class App {
       snapshot.docChanges().forEach( change => {
         const item = change.doc.data();
         const id = change.doc.id
-        if (change.type === 'added') {
+        if (change.type === 'added' || change.type === 'modified' || change.type === 'removed') {
           const li = item.isDone
              ? element`<li><input type="checkbox" class="checkbox" checked ><del>${ item.title }</del><button class="delete"> [x] </button></li>`
              : element`<li><input type="checkbox" class="checkbox" >${ item.title }<button class="delete"> [x] </button></li>`
@@ -29,13 +29,23 @@ export class App {
                 id: id,
                 isDone: !item.isDone,
               }) 
-              this.render()
+              console.log("checkbox");
+              this.render() 
              })
-          // const li = element`<li>${ item.title }</li>`
 
-          // const li = document.createElement('li');
-          // li.textContent = change.doc.data().title
+             // delete
+             const deleteBtn = li.querySelector('.delete');
+             deleteBtn.addEventListener('click', () => {
+               this.todoListModel.deleteItem({
+                 id: id,
+               })
+              this.render() 
+             })
+             console.log("delete");
+             
+
           ul.appendChild(li);
+          // this.render()
         }
       })
     })
