@@ -41,6 +41,12 @@ export class TodoListModel extends EventEmitter {
     })
     // this.items.push( item )
   }
+  checkItem({ id, isDone }) {
+    let item = collection.doc(id);
+    let updateItem = item.update({
+      isDone: isDone
+    })
+  }
   test01() { // all items
     let citiesRef = db.collection('todos');
     let allCities = citiesRef.get()
@@ -91,8 +97,8 @@ export class TodoListModel extends EventEmitter {
 
   }
   test05() { // update 値の更新
-    let item = db.collection('todos').doc('4mB76FWKhs4c4UsYgP4h')
-    let updateItem = item.update({ capital: false })
+    let item = db.collection('todos').doc('8D5HNkvbkYh6rauYdIZ0')
+    let updateItem = item.update({ isDone: true })
     updateItem = item.update({ update_at: firebase.firestore.FieldValue.serverTimestamp()})
   }
 }

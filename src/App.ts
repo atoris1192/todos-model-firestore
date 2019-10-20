@@ -14,9 +14,27 @@ export class App {
     collection.orderBy('created_at', 'desc')
     .onSnapshot( snapshot => {
       snapshot.docChanges().forEach( change => {
+        const item = change.doc.data();
+        const id = change.doc.id
         if (change.type === 'added') {
-          const li = document.createElement('li');
-          li.textContent = change.doc.data().title
+          const li = item.isDone
+             ? element`<li><input type="checkbox" class="checkbox" checked ><del>${ item.title }</del><button class="delete"> [x] </button></li>`
+             : element`<li><input type="checkbox" class="checkbox" >${ item.title }<button class="delete"> [x] </button></li>`
+
+             // checkBox state
+             const checkbox = li.querySelector('.checkbox');
+             checkbox.addEventListener('change', () => {
+              console.log("checkbox change ", item.id, id );
+              this.todoListModel.checkItem({ 
+                id: id,
+                isDone: !item.isDone,
+              }) 
+              this.render()
+             })
+          // const li = element`<li>${ item.title }</li>`
+
+          // const li = document.createElement('li');
+          // li.textContent = change.doc.data().title
           ul.appendChild(li);
         }
       })
@@ -31,6 +49,8 @@ export class App {
 
     jsForm.addEventListener('submit', (event) =>{
       event.preventDefault();
+      if(!jsFormInput.value.trim()) return
+
       this.todoListModel.addTodo({
         title: jsFormInput.value
       })
@@ -45,7 +65,7 @@ export class App {
     // this.test02()
     // this.test03()
     // this.test04();
-    // this.test05();
+    // this.todoListModel.test05();
     
 
     this.addTodo();
