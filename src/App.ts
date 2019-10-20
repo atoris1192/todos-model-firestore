@@ -6,6 +6,16 @@ const todos = [
   { id: 101, title: "title101", isDone: true },
   { id: 102, title: "title102", isDone: false },
 ]
+class TodoItemModel {
+  private id: number;
+  private title: string;
+  private isDone: boolean;
+  constructor({ title }) {
+    this.id = Date.now();
+    this.title = title;
+    this.isDone = false
+  }
+}
 class TodoListModel {
   private items: any;
   constructor(items = []) {
@@ -20,12 +30,14 @@ class TodoListModel {
   getTotalCount() {
     return this.items.length;
   }
+  addTodo( item ) {
+    this.items.push( item )
+  }
 }
 export class App {
   private todoListModel: any;
   constructor() {
     this.todoListModel = new TodoListModel();
-    console.log("App constructor...");
   }
   render() {
     const jsTodoList = document.querySelector('#js-todo-list');
@@ -46,8 +58,26 @@ export class App {
     this.todoListModel.setItems(todos);
     this.render()
   }
+  addTodo() {
+    const jsForm = document.querySelector('#js-form');
+    const jsFormInput: any = document.querySelector('#js-form-input');
+
+    jsForm.addEventListener('submit', (event) =>{
+      event.preventDefault();
+      this.todoListModel.addTodo( new TodoItemModel({
+        title: jsFormInput.value 
+      }))
+      jsFormInput.value = '';
+      console.log(this.todoListModel.getItems());
+      
+      this.render();
+    })
+  }
+
   main() {
-    
+
+    this.addTodo();
     this.firstRender();
+
   }
 }
