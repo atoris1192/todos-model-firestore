@@ -3,14 +3,6 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 
 const config = {
-  apiKey: "AIzaSyCd5tM9yxxuy_JaB7dq5ZDi_WkuB6g9FNs",
-  authDomain: "test01-b1b55.firebaseapp.com",
-  databaseURL: "https://test01-b1b55.firebaseio.com",
-  projectId: "test01-b1b55",
-  storageBucket: "test01-b1b55.appspot.com",
-  messagingSenderId: "594072733076",
-  appId: "1:594072733076:web:59f6f574cde542f64efb81",
-  measurementId: "G-NC8XWP6JXE"
 };
 firebase.initializeApp(config);
 export const db = firebase.firestore()
